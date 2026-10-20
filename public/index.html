@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Later — less on your mind.</title><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/theme.css"></head>
+<body>
+  <aside>
+    <a class="brand" href="/">later<span>✳</span></a>
+    <nav><button class="nav active" data-view="desk">◫ <span>The unloading zone</span></button><button class="nav" data-view="done">✓ <span>Off your plate</span><b id="done-count">0</b></button><button class="nav" data-view="about">⌘ <span>Under the hood</span></button></nav>
+    <section class="profile-card" aria-label="Local account profile">
+      <label class="avatar-upload" for="profile-photo" title="Choose a profile picture">
+        <span id="profile-avatar" aria-hidden="true">YU</span>
+        <span class="avatar-edit" aria-hidden="true">+</span>
+        <input id="profile-photo" type="file" accept="image/png,image/jpeg,image/webp">
+      </label>
+      <div class="profile-copy">
+        <label for="profile-name">LOCAL ACCOUNT</label>
+        <input id="profile-name" maxlength="24" value="Your username" aria-label="Username">
+        <span>Saved on this device</span>
+      </div>
+    </section>
+  </aside>
+  <main>
+    <section id="desk">
+      <div class="intro"><div><div class="eyebrow">LESS HUSTLE, MORE HUMAN</div><h1>Leave it for <em>later.</em></h1><p>All those little things taking up space in your head?<br>Drop them here. We’ll do the first bit for you.</p></div><div class="illustration" aria-hidden="true"><div class="orbit"></div><div class="leaf l1"></div><div class="leaf l2"></div><div class="sloth"><div class="face"><div class="eye left"></div><div class="eye right"></div><div class="nose"></div><div class="smile"></div></div></div><span class="zzz">z z Z</span><span class="illus-caption">currently conserving energy</span></div></div>
+      <div class="desk-grid">
+        <section class="input-card"><div class="card-label"><span>01 / THE BRAIN DUMP</span><span>messy is welcome ↘</span></div><label for="note">What’s sitting on your mind?</label><textarea id="note" maxlength="20000" placeholder="That message I haven’t replied to. The trip I haven’t planned. The million tiny things…"></textarea><div class="input-tools"><label class="file-label">↥ Import .txt<input id="file" type="file" accept=".txt,.md,text/plain"></label><button id="sample">Try an example ↗</button><span id="chars">0 / 20k</span></div><div class="input-bottom"><div><span class="tiny-label">YOUR ENERGY TODAY</span><div class="energy"><button data-energy="5">Bare minimum</button><button class="selected" data-energy="15">A little bit</button><button data-energy="60">Let’s do this</button></div></div><button id="generate" class="primary">Take this off my mind <span>↗</span></button></div><div class="model-row"><span id="mode-label">Local inference</span><select id="model" aria-label="Local AI model"><option>qwen3:4b</option></select></div></section>
+        <section class="how-card"><span class="tiny-label">THE ART OF DOING LESS</span><h2>A little handoff.<br>A lot of headspace.</h2><div class="step"><b>1</b><div><strong>Let it all out</strong><p>Paste notes, messages, or a beautifully chaotic brain dump.</p></div></div><div class="step"><b>2</b><div><strong>We get a head start</strong><p>Your local model turns loose ends into useful drafts.</p></div></div><div class="step"><b>3</b><div><strong>One tiny next move</strong><p>Review, make it yours, and take it off your plate.</p></div></div><div class="open-label">✳ Open weights. Open possibilities.</div></section>
+      </div>
+      <div id="notice" role="status" aria-live="polite"></div>
+      <section class="queue"><div class="queue-heading"><div><span class="eyebrow">A LITTLE PROGRESS COUNTS</span><h2>Your next small moves <span id="task-count">0</span></h2></div><button id="export">Export notebook ↗</button></div><div id="summary"></div><div id="tasks"></div><div id="empty"><span>∿</span><h3>Room to breathe.</h3><p>Your prepared drafts will land here.<br>Start with a brain dump, or try the example above.</p></div></section>
+    </section>
+    <section id="done" hidden><div class="eyebrow">LOOK AT YOU GO</div><h1>Off your plate.</h1><p class="muted">Completed in this browser. Small things add up.</p><div id="completed"></div></section>
+    <section id="about" hidden><div class="eyebrow">OPEN BY DESIGN</div><h1>Small model.<br>Personal superpower.</h1><div class="about-card"><h2>Your thoughts stay close.</h2><p>Later runs a local open-weight model through Ollama. The model extracts obligations, grounds each one in an exact quote, and prepares drafts in a structured format. You review the result.</p><h3>Get your local AI running</h3><ol><li>Install Ollama from <a href="https://ollama.com" target="_blank" rel="noreferrer">ollama.com</a>.</li><li>Run <code>ollama pull qwen3:4b</code> in your terminal.</li><li>Keep Ollama running. Later detects installed models automatically.</li></ol><p>Model downloads need internet. Once installed, generation works offline. Your notes and drafts persist in this browser’s local storage; other people using this browser profile may see them.</p><h3>Open innovation that matters</h3><p>Swap the model for your hardware, inspect the entire prompt and validation code, and run without a paid inference API. Local inference still uses your computer’s memory and electricity.</p><h3>Honest boundaries</h3><p>AI drafts can be wrong. Evidence links verify the quoted source exists, not that every generated claim is correct. Later never sends messages or modifies your calendar; exports are yours to review and import. Minute estimates describe preparation effort, not measured time savings.</p><button id="clear" class="danger">Clear saved notes and drafts</button></div></section>
+    <footer><span>Built for the things you keep meaning to do.</span></footer>
+  </main>
+  <dialog id="detail"><form method="dialog"><button class="close" aria-label="Close draft">×</button></form><div id="detail-content"></div></dialog>
+  <script type="module" src="/app.js"></script>
+</body></html>

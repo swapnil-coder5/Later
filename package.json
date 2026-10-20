@@ -1,0 +1,15 @@
+{
+  "name": "later-local",
+  "version": "1.0.0",
+  "description": "A private local AI that turns messy notes into editable replies, checklists, and calendar reminders.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test",
+    "check": "node --check server.mjs && node --check public/app.js && node --test"
+  },
+  "engines": { "node": ">=22" },
+  "keywords": ["local-ai", "ollama", "open-weights", "productivity", "privacy"],
+  "license": "MIT"
+}
