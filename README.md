@@ -38,12 +38,31 @@ npm start
 
 Keep Ollama running. Later discovers installed models automatically. The model download requires internet; inference can run offline afterward. Model speed and memory use depend on the model and hardware.
 
+## Deploy on Render
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/swapnil-coder5/Later)
+
+The included `render.yaml` creates one Docker web service in Singapore with:
+
+- Node.js and Ollama in the same container.
+- The open-weight `qwen2.5:0.5b` model.
+- A `1c-2g` compute plan and 5 GB persistent disk.
+- A `/healthz` deployment health check.
+- Automatic deployment after the connected branch's CI checks pass.
+- A hosted rate limit of eight generations per visitor every 15 minutes.
+
+This is a **paid Render deployment**. The model needs more memory than Render's 512 MB free web service, and persistent disks are available only to paid services. Review the resources and current pricing in Render before approving the Blueprint.
+
+On the first deployment, the page becomes available while Ollama downloads the model in the background. The five sample workflows work immediately. Real generation becomes available when `qwen2.5:0.5b` appears in the model selector.
+
+Hosted privacy differs from local mode: notes used for real generation travel over HTTPS to your Render service and are processed by Ollama in that service's container. Later does not log the notes or forward them to a third-party inference API. Tasks, profile settings, and drafts remain in each visitor's browser storage.
+
 ## How it works
 
 ```mermaid
 flowchart LR
-    A[Brain dump in browser] --> B[Loopback Node server]
-    B --> C[Local Ollama model]
+    A[Brain dump in browser] --> B[Node server]
+    B --> C[Ollama model]
     C --> D[Schema-constrained JSON]
     D --> E[Evidence and field validation]
     E --> F[Editable review queue]
@@ -61,9 +80,9 @@ The model receives a strict JSON Schema. The server then validates types, dates,
 
 ## Privacy and security
 
-- The server binds only to `127.0.0.1` and rejects foreign hostnames and browser origins.
-- Ollama is contacted only at `127.0.0.1:11434`; the destination is not user-controlled.
-- Notes are not logged by this application or sent to a cloud inference service.
+- Local mode binds only to `127.0.0.1`. Render mode binds to the platform port and accepts only configured hostnames and same-origin browser requests.
+- Ollama defaults to `127.0.0.1:11434` and runs in the same Render container for the hosted Blueprint.
+- Notes are not logged by this application. Local mode keeps inference on the device; hosted mode sends generation requests to the user's own Render service.
 - Model output is inserted as text rather than HTML.
 - Profile pictures are resized in the browser before local storage.
 
@@ -85,6 +104,7 @@ The suite covers invented source evidence, invalid task fields and dates, empty 
 - Preparation minutes are estimates, not measured time saved.
 - Text import supports `.txt` and `.md`; it does not parse PDFs or images.
 - Later does not crawl files, read an inbox, run in the background, or take external actions.
+- Hosted generation is CPU-only and intentionally rate-limited; it is a portfolio demo rather than a high-throughput inference service.
 
 ## Contributing
 

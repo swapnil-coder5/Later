@@ -10,6 +10,8 @@ Thanks for improving Later. Keep changes small, reviewable, and consistent with 
 4. Use the sample workflows when Ollama is unavailable.
 5. Run `npm run check` before opening a pull request.
 
+To validate the hosted image, build the repository's `Dockerfile` and verify `/healthz`. The first container start downloads the configured Ollama model unless it already exists on the mounted model volume.
+
 No dependency installation is currently required.
 
 ## Pull requests
