@@ -4,6 +4,12 @@
 
 Later was created for DEV's **Slow and Steady** theme: software that does the first bit of work so you can conserve your energy. It runs an open-weight language model through Ollama and keeps the review step in human hands.
 
+## 25-second walkthrough
+
+[![Watch the Later product walkthrough](./walkthrough-assets/Later-Walkthrough-Poster.png)](https://github.com/swapnil-coder5/Later/blob/main/walkthrough-assets/Later-Walkthrough.mp4)
+
+[Watch the full HD walkthrough video](https://github.com/swapnil-coder5/Later/blob/main/walkthrough-assets/Later-Walkthrough.mp4). It demonstrates Hinglish input, energy-based generation, prepared drafts, **Off your plate**, and the local Ollama architecture.
+
 ## Highlights
 
 - Turns unstructured notes into useful drafts instead of another task list.

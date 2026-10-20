@@ -10,3 +10,9 @@ Thumbs.db
 .vscode/
 *.swp
 *.swo
+
+# Temporary walkthrough render files
+walkthrough-assets/frames/
+walkthrough-assets/verify/
+walkthrough-assets/frames.m3u8
+walkthrough-assets/frames.rgb24
