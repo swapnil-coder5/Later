@@ -12,6 +12,6 @@ Include a concise impact description, reproduction steps, affected files or endp
 
 ## Local data model
 
-Local mode is designed for one user on one device and binds the server to the loopback interface. The Render Blueprint exposes the interface publicly, runs Ollama in the same container, applies same-origin checks, and rate-limits model generations in memory.
+Later is designed for one user on one device and binds the server to the loopback interface. It accepts only local hostnames and same-origin browser requests.
 
-Browser state is stored in local storage. Local storage is not encrypted and is accessible to other people using the same browser profile. The profile card is a local display preference, not an authenticated account. The application does not provide authorization or confidential multi-user storage. Treat the hosted configuration as a portfolio demo, not as a service for regulated or highly sensitive data.
+Browser state is stored in local storage. Local storage is not encrypted and is accessible to other people using the same browser profile. The profile card is a local display preference, not an authenticated account. The application does not provide authorization or confidential multi-user storage. Do not use it for regulated or highly sensitive data.

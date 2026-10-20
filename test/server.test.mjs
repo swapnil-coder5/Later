@@ -33,7 +33,7 @@ before(async () => {
   port = await freePort();
   child = spawn(process.execPath, ["server.mjs"], {
     cwd: new URL("..", import.meta.url),
-    env: { ...process.env, PORT: String(port), RENDER: "true", RENDER_EXTERNAL_HOSTNAME: "later-test.onrender.com" },
+    env: { ...process.env, PORT: String(port) },
     stdio: ["ignore", "pipe", "pipe"]
   });
   await new Promise((resolve, reject) => {
@@ -47,21 +47,23 @@ before(async () => {
 
 after(() => { if (child && !child.killed) child.kill(); });
 
-test("Render health check does not depend on its Host header", async () => {
-  const response = await request("/healthz", "internal-render-check");
-  assert.equal(response.status, 200);
-  assert.equal(JSON.parse(response.body).status, "ok");
-});
-
-test("accepts the configured Render hostname", async () => {
-  const response = await request("/", "later-test.onrender.com");
+test("serves the app on localhost", async () => {
+  const response = await request("/", `localhost:${port}`);
   assert.equal(response.status, 200);
   assert.match(response.body, /<title>Later/);
 });
 
-test("rejects unknown hostnames and cross-origin requests", async () => {
+test("reports local Ollama health", async () => {
+  const response = await request("/api/health", `127.0.0.1:${port}`);
+  assert.equal(response.status, 200);
+  const payload = JSON.parse(response.body);
+  assert.equal(typeof payload.online, "boolean");
+  assert.ok(Array.isArray(payload.models));
+});
+
+test("rejects non-local hostnames and cross-origin requests", async () => {
   const badHost = await request("/", "attacker.example");
   assert.equal(badHost.status, 403);
-  const badOrigin = await request("/", "later-test.onrender.com", "https://attacker.example");
+  const badOrigin = await request("/", `localhost:${port}`, "https://attacker.example");
   assert.equal(badOrigin.status, 403);
 });

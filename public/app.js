@@ -60,7 +60,7 @@ let profile = {
   name: typeof saved.profile?.name === "string" && saved.profile.name.trim() ? saved.profile.name.slice(0, 24) : "Your username",
   photo: typeof saved.profile?.photo === "string" && saved.profile.photo.startsWith("data:image/") ? saved.profile.photo : ""
 };
-let energy = 15, demo = false, online = false, hosted = false, busy = false, healthTimer = 0;
+let energy = 15, demo = false, online = false, busy = false, healthTimer = 0;
 $("#sample").textContent = `Try ${EXAMPLES.length} examples ↗`;
 $("#note").value = typeof saved.note === "string" ? saved.note : "";
 function notice(text) { $("#notice").textContent = text; }
@@ -88,7 +88,7 @@ function render() {
     const card = element("article", "", "task");
     card.append(element("div", { reply: "↗", checklist: "☷", calendar: "▦" }[t.kind] || "○", "task-icon"));
     const content = element("div", "", "task-main");
-    content.append(element("div", `${t.kind} · ${t.demo ? "sample" : t.hosted ? "hosted open AI" : "local AI"}${!t.done && t.effort <= energy ? " · fits your energy" : ""}`, "tag"), element("h3", t.title), element("p", `~${t.effort} min preparation estimate`));
+    content.append(element("div", `${t.kind} · ${t.demo ? "sample" : "local AI"}${!t.done && t.effort <= energy ? " · fits your energy" : ""}`, "tag"), element("h3", t.title), element("p", `~${t.effort} min preparation estimate`));
     card.append(content);
     const review = element("button", "Open draft ↗");
     review.onclick = () => openTask(t); card.append(review);
@@ -101,7 +101,7 @@ function render() {
 }
 function openTask(t) {
   const root = $("#detail-content"); root.replaceChildren();
-  root.append(element("span", t.demo ? "SAMPLE DRAFT · REVIEW BEFORE USE" : `${t.hosted ? "HOSTED OPEN AI" : "LOCAL AI"} DRAFT · REVIEW BEFORE USE`, "eyebrow"), element("h2", t.title), element("p", t.reason), element("blockquote", t.source));
+  root.append(element("span", t.demo ? "SAMPLE DRAFT · REVIEW BEFORE USE" : "LOCAL AI DRAFT · REVIEW BEFORE USE", "eyebrow"), element("h2", t.title), element("p", t.reason), element("blockquote", t.source));
   const label = element("label", "Make it yours"); label.htmlFor = "draft";
   const draft = element("textarea"); draft.id = "draft"; draft.value = t.draft;
   draft.oninput = () => { t.draft = draft.value; persist(); };
@@ -130,20 +130,7 @@ function openTask(t) {
 async function health() {
   clearTimeout(healthTimer);
   try {
-    const r = await fetch("/api/health"); const data = await r.json(); online = data.online; hosted = Boolean(data.hosted);
-    if (hosted) {
-      $("#runtime-title").textContent = "Open weights, hosted together.";
-      $("#runtime-copy").textContent = "This public demo runs the open-weight model and Later in the same Render service. Your drafts remain review-first and are stored only in your browser.";
-      $("#setup-title").textContent = "Hosted demo";
-      $("#setup-steps").replaceChildren(
-        Object.assign(document.createElement("li"), { textContent: "The service starts Ollama automatically." }),
-        Object.assign(document.createElement("li"), { textContent: "The first deployment downloads the configured model." }),
-        Object.assign(document.createElement("li"), { textContent: "When the model selector appears, real inference is ready." })
-      );
-      $("#data-copy").textContent = "Notes used for real generation travel over HTTPS to this Render service and are processed by its Ollama container. Later does not log them or send them to a third-party inference API.";
-      $("#innovation-copy").textContent = "The model remains swappable and open-weight, while the hosted container makes the demo accessible without requiring visitors to install Ollama.";
-      if (!demo) $("#mode-label").textContent = "Hosted open-weight inference";
-    }
+    const r = await fetch("/api/health"); const data = await r.json(); online = data.online;
     if (data.models.length) {
       $("#model").replaceChildren(...data.models.map(name => { const o = element("option", name); o.value = name; return o; }));
     }
@@ -151,7 +138,7 @@ async function health() {
   finally { if (!online) healthTimer = setTimeout(health, 10000); }
 }
 function updateNote() {
-  demo = false; $("#mode-label").textContent = hosted ? "Hosted open-weight inference" : "Local inference";
+  demo = false; $("#mode-label").textContent = "Local inference";
   $("#chars").textContent = `${$("#note").value.length.toLocaleString()} / 20k`; persist();
 }
 $("#note").oninput = updateNote;
@@ -190,7 +177,7 @@ $("#generate").onclick = async () => {
     let added = 0;
     for (const task of plan.tasks) {
       if (tasks.some(t => t.source === task.source && t.kind === task.kind)) continue;
-      tasks.push({ ...task, id: crypto.randomUUID(), done: false, demo: sampleMode, hosted: !sampleMode && hosted }); added++;
+      tasks.push({ ...task, id: crypto.randomUUID(), done: false, demo: sampleMode }); added++;
     }
     $("#summary").textContent = plan.summary;
     persist(); render();

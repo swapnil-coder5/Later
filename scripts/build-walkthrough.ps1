@@ -284,9 +284,9 @@ function Draw-FrameBase($g, [int]$scene, [float]$p) {
       Draw-Cursor $g (107 + 15*$p) (269 + 15*$p) ($p -gt .2 -and $p -lt .35)
     }
     6 {
-      Draw-Pill $g 'READY FOR GITHUB + RENDER' 455 (89 + $lift) 370 $palette.Citrus $palette.Ink
+      Draw-Pill $g 'READY FOR GITHUB' 485 (89 + $lift) 310 $palette.Citrus $palette.Ink
       Draw-Text $g "A lazy assistant.`nA serious portfolio project." 230 (170 + $lift) 820 145 55 $palette.Ink 'Georgia' ([System.Drawing.FontStyle]::Regular) 'Center'
-      Draw-Text $g 'Open-source AI  /  Ollama  /  Node.js  /  Docker  /  Local-first UX' 260 (350 + $lift) 760 42 18 $palette.Berry 'Segoe UI' ([System.Drawing.FontStyle]::Bold) 'Center'
+      Draw-Text $g 'Open-source AI  /  Ollama  /  Node.js  /  Local-first UX' 260 (350 + $lift) 760 42 18 $palette.Berry 'Segoe UI' ([System.Drawing.FontStyle]::Bold) 'Center'
       Draw-Button $g 'github.com/swapnil-coder5/Later' 406 (432 + $lift) 468 62 $true
       Draw-Sloth $g 640 (602 + $lift) 0.46 ([Math]::Sin($p*7)*4) 0
       Draw-Text $g 'BUILT FOR THE THINGS YOU KEEP MEANING TO DO.' 370 672 540 23 12 $palette.Muted 'Segoe UI' ([System.Drawing.FontStyle]::Bold) 'Center'
