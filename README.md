@@ -96,8 +96,4 @@ The suite covers invented source evidence, invalid task fields and dates, empty 
 
 Issues and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for the local workflow and project boundaries.
 
-## License
-
-[MIT](LICENSE) © 2026 Later contributors.
-
 For a demo script, résumé bullet, and editable launch post, see [SHOWCASE.md](SHOWCASE.md).

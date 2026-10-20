@@ -11,5 +11,5 @@
   },
   "engines": { "node": ">=22" },
   "keywords": ["local-ai", "ollama", "open-weights", "productivity", "privacy"],
-  "license": "MIT"
+  "license": "UNLICENSED"
 }
